@@ -1,0 +1,33 @@
+name: "Lint & test"
+on: [pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [16]
+    name: Lint on Node ${{ matrix.node }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: ${{ matrix.node }}
+          check-latest: true
+      - run: npm ci --quiet
+      - run: npm run lint
+  typecheck-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [8, 12, 14, 16, 18]
+    name: Test on Node ${{ matrix.node }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: ${{ matrix.node }}
+          check-latest: true
+      - run: npm ci --quiet
+      - run: npm typecheck
+      - run: npm test
