@@ -29,5 +29,5 @@ jobs:
           node-version: ${{ matrix.node }}
           check-latest: true
       - run: npm ci --quiet
-      - run: npm typecheck
+      - run: npm run typecheck
       - run: npm test
