@@ -10,28 +10,10 @@ type Meta = {
 
 type FieldType = 'integer' | 'number' | 'string' | 'boolean' | 'object' | 'null' | 'array';
 
-const yupToSwaggerConditions: Record<string, Record<string, string>> = {
-    array: {
-        min: 'minItems',
-        max: 'maxItems',
-    },
-    boolean: {
-        default: 'default',
-    },
-    number: {
-        lessThan: 'exclusiveMaximum',
-        moreThan: 'exclusiveMinimum',
-        min: 'minimum',
-        max: 'maximum',
-        multipleOf: 'multipleOf',
-        negative: 'exclusiveMaximum',
-        positive: 'exclusiveMinimum',
-    },
-    string: {
-        min: 'minLength',
-        max: 'maxLength',
-        matches: 'pattern',
-    },
+const yupToSwaggerConditions: Record<string, string[]> = {
+    array: ['min', 'max'],
+    number: ['min', 'max'],
+    string: ['min', 'max', 'matches'],
 };
 
 const yupToSwaggerFormat: Record<string, { types: string[]; default: string | null }> = {
@@ -160,18 +142,77 @@ function getEnum(yupField: AnySchema): unknown[] | null {
 }
 
 function getMiscAttributes(yupField: AnySchema): Record<string, string | boolean> {
-    const conditionsConfig = yupToSwaggerConditions[yupField.type] || {};
+    const conditionsConfig = yupToSwaggerConditions[yupField.type] || [];
     const allAttrNames = getTests(yupField);
+    const result = findTests(yupField, conditionsConfig);
 
-    const result = findTests(yupField, Object.keys(conditionsConfig));
+    function createAttributes(attrName: string) {
+        switch (yupField.type) {
+            case 'number':
+                if (attrName === 'min' && allAttrNames?.min?.more !== undefined) {
+                    return {
+                        minimum: allAttrNames?.min?.more,
+                        exclusiveMinimum: true,
+                    };
+                }
+                if (attrName === 'min' && allAttrNames?.min?.min !== undefined) {
+                    return {
+                        minimum: allAttrNames?.min?.min,
+                    };
+                }
+                if (attrName === 'max' && allAttrNames?.max?.less !== undefined) {
+                    return {
+                        maximum: allAttrNames?.max?.less,
+                        exclusiveMaximum: true,
+                    };
+                }
+                if (attrName === 'max' && allAttrNames?.max?.max !== undefined) {
+                    return {
+                        maximum: allAttrNames?.max?.max,
+                    };
+                }
+
+                return undefined;
+            case 'string':
+                if (attrName === 'min' && allAttrNames?.min?.min !== undefined) {
+                    return {
+                        minLength: allAttrNames?.min?.min,
+                    };
+                }
+                if (attrName === 'max' && allAttrNames?.max?.max !== undefined) {
+                    return {
+                        maxLength: allAttrNames?.max?.max,
+                    };
+                }
+                if (attrName === 'matches' && allAttrNames?.matches?.regex instanceof RegExp) {
+                    return {
+                        pattern: allAttrNames?.matches?.regex?.toString(),
+                    };
+                }
+
+                return undefined;
+            case 'array':
+                if (attrName === 'min' && allAttrNames?.min?.min !== undefined) {
+                    return {
+                        minItems: allAttrNames?.min?.min,
+                    };
+                }
+                if (attrName === 'max' && allAttrNames?.max?.max !== undefined) {
+                    return {
+                        maxItems: allAttrNames?.max?.max,
+                    };
+                }
+
+                return undefined;
+            default:
+                return undefined;
+        }
+    }
 
     return result.reduce(
         (agg, attrName) => ({
             ...agg,
-            [conditionsConfig[attrName]]:
-                allAttrNames[attrName] !== undefined
-                    ? Object.values(allAttrNames[attrName] as Record<string, string>)[0]
-                    : true,
+            ...createAttributes(attrName),
         }),
         {}
     );
@@ -232,6 +273,7 @@ function parseArray(yupSchema: ArraySchema<AnySchema>): SchemaObject {
     const title = meta?.title;
     const description = meta?.description;
     const items = yupSchema.innerType ? getArrayItems(yupSchema.innerType) : null;
+    const miscAttrs = getMiscAttributes(yupSchema);
 
     const schema: SchemaObject = {
         type: 'array',
@@ -245,6 +287,12 @@ function parseArray(yupSchema: ArraySchema<AnySchema>): SchemaObject {
     }
     if (items) {
         schema.items = items;
+    }
+    if (Object.values(miscAttrs).length > 0) {
+        return {
+            ...schema,
+            ...miscAttrs,
+        };
     }
 
     return schema;
@@ -281,8 +329,13 @@ export default function parse(yupSchema: AnySchema): SchemaObject {
     if (nullable) {
         result.nullable = nullable;
     }
-    if (defaultValue) {
-        result.default = typeof defaultValue === 'function' ? defaultValue() : defaultValue;
+    if (defaultValue && typeof defaultValue === 'function') {
+        const value = defaultValue();
+        result.default = value instanceof Date ? value.toISOString() : value;
+    } else if (defaultValue && defaultValue instanceof Date) {
+        result.default = defaultValue.toISOString();
+    } else if (defaultValue) {
+        result.default = defaultValue;
     }
     if (title) {
         result.title = title;
