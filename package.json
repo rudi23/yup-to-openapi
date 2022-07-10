@@ -71,7 +71,7 @@
     "eslint-plugin-import": "2.23.4",
     "eslint-plugin-jest": "24.3.6",
     "eslint-plugin-prettier": "3.4.0",
-    "husky": "4.3.8",
+    "husky": "8.0.1",
     "jest": "27.0.4",
     "lint-staged": "11.0.0",
     "prettier": "2.3.1",
