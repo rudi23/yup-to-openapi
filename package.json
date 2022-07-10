@@ -11,7 +11,7 @@
     "validation"
   ],
   "scripts": {
-    "typecheck": "tsc --noEmit tsconfig.json",
+    "typecheck": "tsc --noEmit",
     "build": "tsc --build --verbose tsconfig.build.json",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
