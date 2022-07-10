@@ -11,13 +11,12 @@
     "validation"
   ],
   "scripts": {
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit tsconfig.jso",
     "build": "tsc --build --verbose tsconfig.build.json",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "test": "jest test",
-    "test:build": "tsc --build --verbose tsconfig.json",
-    "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --coverage --color",
     "prepare": "npm run build && husky install",
     "release": "release-it"
   },
