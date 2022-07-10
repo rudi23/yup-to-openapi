@@ -22,7 +22,7 @@
     "release": "release-it"
   },
   "engines": {
-    "node": ">= 8"
+    "node": ">= 12"
   },
   "author": "Krzysztof Rudowski",
   "license": "MIT",
