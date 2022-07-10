@@ -30,4 +30,4 @@ jobs:
           check-latest: true
       - run: npm ci --quiet
       - run: npm run typecheck
-      - run: npm test
+      - run: npm run test:ci
