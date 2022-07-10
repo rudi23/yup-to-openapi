@@ -54,7 +54,7 @@
     }
   },
   "dependencies": {
-    "openapi3-ts": "2.0.1",
+    "openapi3-ts": "2.0.2",
     "yup": "0.32.9"
   },
   "devDependencies": {
