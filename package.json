@@ -18,7 +18,7 @@
     "test": "jest test",
     "test:ci": "jest --ci --coverage --color",
     "prepare": "npm run build && husky install",
-    "release": "release-it"
+    "release": "GITHUB_TOKEN=$GITHUB_COM_TOKEN && release-it"
   },
   "engines": {
     "node": ">= 12"
