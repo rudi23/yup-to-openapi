@@ -16,6 +16,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "test": "jest test",
+    "test:build": "tsc --build --verbose tsconfig.json",
     "test:ci": "jest --ci --coverage --color",
     "prepare": "npm run build && husky install",
     "release": "GITHUB_TOKEN=$GITHUB_COM_TOKEN && release-it"
