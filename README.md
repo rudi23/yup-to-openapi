@@ -24,7 +24,7 @@ NodeJS `>= 12.0.0.` is required.
 ## Example
 
 ```js
-import yupToOpenAPI from '@src/index';
+import yupToOpenAPI from '@rudi23/yup-to-openapi';
 
 const yupSchema = yup.object({
     firstName: yup.string().required(),
