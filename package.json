@@ -54,7 +54,7 @@
     "@commitlint/cli": "17.0.3",
     "@commitlint/config-conventional": "17.0.3",
     "@release-it/conventional-changelog": "5.0.0",
-    "@types/jest": "28.1.5",
+    "@types/jest": "28.1.6",
     "@typescript-eslint/eslint-plugin": "5.30.6",
     "@typescript-eslint/parser": "5.30.6",
     "eslint": "8.19.0",
