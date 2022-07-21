@@ -1,3 +1,9 @@
+## [2.1.0](https://github.com/rudi23/yup-to-openapi/compare/v2.0.1...v2.1.0) (2022-07-21)
+
+### Features
+
+-   move to esm with build supporting commonjs ([#35](https://github.com/rudi23/yup-to-openapi/issues/35)) ([1ccac46](https://github.com/rudi23/yup-to-openapi/commit/1ccac46c1335d4349d3c4b9f836d294110cce13b))
+
 ## [2.0.1](https://github.com/rudi23/yup-to-openapi/compare/v2.0.0...v2.0.1) (2022-07-21)
 
 ### Bug Fixes
