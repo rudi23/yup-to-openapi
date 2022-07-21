@@ -1,16 +1,20 @@
 module.exports = {
+    extensionsToTreatAsEsm: ['.ts'],
     globals: {
         'ts-jest': {
             diagnostics: false,
-            tsconfig: 'tsconfig.json',
+            tsconfig: 'tsconfig.cjs.json',
+            isolatedModules: true,
+            useESM: true,
         },
     },
     moduleFileExtensions: ['js', 'ts', 'd.ts'],
     moduleNameMapper: {
-        '@src/(.*)': '<rootDir>/src/$1',
+        '^(\\.{1,2}/.*)\\.js$': '$1',
     },
     preset: 'ts-jest',
     rootDir: '.',
     roots: ['<rootDir>/test'],
+    transform: { '^.+\\.ts$': 'ts-jest' },
     verbose: true,
 };

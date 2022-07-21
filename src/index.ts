@@ -1,5 +1,5 @@
 import { ArraySchema, isSchema, ObjectSchema } from 'yup';
-import type { ExtraParams, SchemaLike } from 'yup/lib/types';
+import type { ExtraParams, SchemaLike } from 'yup/lib/types.d.js';
 import type { AnySchema, AnyObjectSchema } from 'yup';
 import type { SchemaObject } from 'openapi3-ts';
 import type Lazy from 'yup/lib/Lazy.d.js';

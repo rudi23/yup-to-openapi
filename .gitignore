@@ -1,4 +1,8 @@
 .idea
-lib
+esm/*
+!esm/package.json
+cjs/*
+!cjs/package.json
+@type
 coverage
 /node_modules/

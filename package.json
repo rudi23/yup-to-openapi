@@ -12,7 +12,10 @@
   ],
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "build": "tsc --build --verbose tsconfig.build.json",
+    "build": "npm run build:esm && npm run build:cjs && npm run build:types",
+    "build:types": "tsc --build --verbose tsconfig.d.ts.json",
+    "build:esm": "tsc --build --verbose tsconfig.esm.json",
+    "build:cjs": "tsc --build --verbose tsconfig.cjs.json",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "test": "jest test",
@@ -35,13 +38,20 @@
   },
   "homepage": "https://github.com/rudi23/yup-to-openapi",
   "files": [
-    "lib/**/*"
+    "esm/**/*",
+    "cjs/**/*",
+    "@type"
   ],
   "publishConfig": {
     "access": "public"
   },
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "exports": {
+    "require": "./cjs/index.js",
+    "import": "./esm/index.js"
+  },
+  "main": "./cjs/index.js",
+  "types": "./@type/index.d.ts",
+  "type": "module",
   "lint-staged": {
     "*.{js,ts}": "eslint --fix",
     "*.{json,md}": "prettier --write"
