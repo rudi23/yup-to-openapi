@@ -1,28 +1,29 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "alwaysStrict": true,
-    "declaration": true,
+    "baseUrl": ".",
     "esModuleInterop": true,
     "importsNotUsedAsValues": "error",
-    "module": "commonjs",
-    "noUnusedLocals": true,
-    "noImplicitReturns": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
+    "lib": ["esnext"],
+    "module": "es2022",
+    "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
-    "outDir": "./lib",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "outDir": "./esm",
+    "paths": {
+      "@src/*": ["src/*"]
+    },
     "removeComments": true,
     "rootDirs": ["src"],
     "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true,
-    "target": "ES5",
-    "lib": ["es2020"],
-    "baseUrl": ".",
-    "paths": {
-      "@src/*": ["src/*"]
-    }
+    "target": "es2021"
   },
   "include": ["**/*"],
-  "exclude": ["node_modules", "lib"]
+  "exclude": ["node_modules", "esm", "cjs", "@type", "test"]
 }

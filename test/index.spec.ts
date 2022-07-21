@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 import type { SchemaObject } from 'openapi3-ts';
-import yupToOpenAPI from '@src/index';
+import yupToOpenAPI from '../src/index.js';
 
 describe('yup-to-openapi', () => {
     describe('yup lazy schema', () => {
