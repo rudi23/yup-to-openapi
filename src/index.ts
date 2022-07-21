@@ -1,7 +1,8 @@
-import { ArraySchema, ObjectSchema } from 'yup';
-import type { ExtraParams } from 'yup/lib/types';
+import { ArraySchema, isSchema, ObjectSchema } from 'yup';
+import type { ExtraParams, SchemaLike } from 'yup/lib/types';
 import type { AnySchema, AnyObjectSchema } from 'yup';
 import type { SchemaObject } from 'openapi3-ts';
+import type Lazy from 'yup/lib/Lazy.d.js';
 
 type Meta = {
     title?: string;
@@ -17,6 +18,14 @@ const yupToSwaggerConditions: Record<string, string[]> = {
 };
 
 const yupToSwaggerFormat: Record<string, { types: string[]; default: string | null }> = {
+    mixed: {
+        types: [],
+        default: null,
+    },
+    lazy: {
+        types: [],
+        default: null,
+    },
     array: {
         types: [],
         default: null,
@@ -58,6 +67,14 @@ const yupToSwaggerFormat: Record<string, { types: string[]; default: string | nu
 };
 
 const yupToSwaggerType: Record<string, { types: FieldType[]; default: FieldType }> = {
+    mixed: {
+        types: [],
+        default: 'object',
+    },
+    lazy: {
+        types: [],
+        default: 'object',
+    },
     array: {
         types: [],
         default: 'array',
@@ -298,7 +315,15 @@ function parseArray(yupSchema: ArraySchema<AnySchema>): SchemaObject {
     return schema;
 }
 
-export default function parse(yupSchema: AnySchema): SchemaObject {
+function isLazy(x: unknown): x is Lazy<any> {
+    return isSchema(x) && x.type === 'lazy';
+}
+
+export default function parse(yupSchema: SchemaLike): SchemaObject {
+    if (isLazy(yupSchema)) {
+        return { type: 'object' } as SchemaObject;
+    }
+
     const type = getType(yupSchema);
     if (type === 'object' && yupSchema instanceof ObjectSchema) {
         return parseObject(yupSchema);

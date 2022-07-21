@@ -3,7 +3,32 @@ import type { SchemaObject } from 'openapi3-ts';
 import yupToOpenAPI from '@src/index';
 
 describe('yup-to-openapi', () => {
+    describe('yup lazy schema', () => {
+        it('should handle "lazy" attribute', () => {
+            const input = yup.lazy((value) => {
+                switch (typeof value) {
+                    case 'number':
+                        return yup.number();
+                    case 'string':
+                        return yup.string();
+                    default:
+                        return yup.mixed();
+                }
+            });
+            const output: SchemaObject = { type: 'object' };
+
+            expect(yupToOpenAPI(input)).toEqual(output);
+        });
+    });
+
     describe('yup mixed schema', () => {
+        it('should handle "mixed" attribute', () => {
+            const input = yup.mixed();
+            const output: SchemaObject = { type: 'object' };
+
+            expect(yupToOpenAPI(input)).toEqual(output);
+        });
+
         it('should handle "label" attribute', () => {
             const input = yup.string().label('label');
             const output: SchemaObject = { type: 'string', title: 'label' };
