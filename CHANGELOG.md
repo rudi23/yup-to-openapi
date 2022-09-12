@@ -1,3 +1,9 @@
+## [2.1.2](https://github.com/rudi23/yup-to-openapi/compare/v2.1.1...v2.1.2) (2022-09-12)
+
+### Reverts
+
+-   Revert "fix(deps): update dependency openapi3-ts to v3 (#42)" (#76) ([c2538a2](https://github.com/rudi23/yup-to-openapi/commit/c2538a2ffad0960b1020073abd50c81415121009)), closes [#42](https://github.com/rudi23/yup-to-openapi/issues/42) [#76](https://github.com/rudi23/yup-to-openapi/issues/76)
+
 ## [2.1.1](https://github.com/rudi23/yup-to-openapi/compare/v2.1.0...v2.1.1) (2022-09-12)
 
 ### Bug Fixes
