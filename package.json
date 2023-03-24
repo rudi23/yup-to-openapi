@@ -57,7 +57,7 @@
     "*.{json,md}": "prettier --write"
   },
   "dependencies": {
-    "openapi3-ts": "2.0.2",
+    "openapi3-ts": "3.2.0",
     "yup": "0.32.11"
   },
   "devDependencies": {
