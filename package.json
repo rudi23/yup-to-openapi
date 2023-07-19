@@ -61,8 +61,8 @@
     "yup": "0.32.11"
   },
   "devDependencies": {
-    "@commitlint/cli": "17.6.6",
-    "@commitlint/config-conventional": "17.6.6",
+    "@commitlint/cli": "17.6.7",
+    "@commitlint/config-conventional": "17.6.7",
     "@release-it/conventional-changelog": "5.1.1",
     "@types/jest": "28.1.8",
     "@typescript-eslint/eslint-plugin": "5.62.0",
