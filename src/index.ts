@@ -1,8 +1,8 @@
-import { ArraySchema, isSchema, ObjectSchema } from 'yup';
-import type { ExtraParams, SchemaLike } from 'yup/lib/types.d.js';
-import type { AnySchema, AnyObjectSchema } from 'yup';
+import { ArraySchema, ObjectSchema } from 'yup';
+import type { AnyObject, AnySchema, Lazy } from 'yup';
 import type { SchemaObject } from 'openapi3-ts';
-import type Lazy from 'yup/lib/Lazy.d.js';
+
+type ExtraParams = Record<string, unknown>;
 
 type Meta = {
     title?: string;
@@ -253,7 +253,7 @@ function getArrayItems(yupSchema: AnySchema): SchemaObject {
 }
 
 function isRequired(yupSchema: AnySchema): boolean {
-    return yupSchema.spec.presence.includes('required');
+    return yupSchema.spec.nullable === false && yupSchema.spec.optional === false;
 }
 
 function getRequired(fields: Record<string, AnySchema>): string[] {
@@ -263,7 +263,7 @@ function getRequired(fields: Record<string, AnySchema>): string[] {
     );
 }
 
-function parseObject(yupSchema: AnyObjectSchema): SchemaObject {
+function parseObject(yupSchema: ObjectSchema<undefined>): SchemaObject {
     const meta = yupSchema.describe().meta as Meta | undefined;
     const title = meta?.title;
     const description = meta?.description;
@@ -288,11 +288,11 @@ function parseObject(yupSchema: AnyObjectSchema): SchemaObject {
     return schema;
 }
 
-function parseArray(yupSchema: ArraySchema<AnySchema>): SchemaObject {
+function parseArray(yupSchema: ArraySchema<string[], any>): SchemaObject {
     const meta = yupSchema.describe().meta as Meta | undefined;
     const title = meta?.title;
     const description = meta?.description;
-    const items = yupSchema.innerType ? getArrayItems(yupSchema.innerType) : null;
+    const items = yupSchema.innerType ? getArrayItems(yupSchema.innerType as AnySchema) : null;
     const miscAttrs = getMiscAttributes(yupSchema);
 
     const schema: SchemaObject = {
@@ -319,17 +319,19 @@ function parseArray(yupSchema: ArraySchema<AnySchema>): SchemaObject {
 }
 
 function isLazy(x: unknown): x is Lazy<any> {
-    return isSchema(x) && x.type === 'lazy';
+    return x instanceof Object && 'type' in x && x.type === 'lazy';
 }
 
-export default function parse(yupSchema: SchemaLike): SchemaObject {
+export default function parse(
+    yupSchema: AnySchema | Lazy<string | number | {} | undefined, AnyObject, any>
+): SchemaObject {
     if (isLazy(yupSchema)) {
         return { type: 'object' } as SchemaObject;
     }
 
     const type = getType(yupSchema);
     if (type === 'object' && yupSchema instanceof ObjectSchema) {
-        return parseObject(yupSchema);
+        return parseObject(yupSchema as unknown as ObjectSchema<undefined>);
     }
     if (type === 'array' && yupSchema instanceof ArraySchema) {
         return parseArray(yupSchema);
