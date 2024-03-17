@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import type { SchemaObject } from 'openapi3-ts';
+import type { SchemaObject } from 'openapi3-ts/oas30.d.js';
 import yupToOpenAPI from '../src/index.js';
 
 describe('yup-to-openapi', () => {
