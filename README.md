@@ -19,7 +19,7 @@ Install using [`npm`][npm-url]:
 npm install @rudi23/yup-to-openapi
 ```
 
-NodeJS `>= 12.0.0.` is required.
+NodeJS `>= 16.0.0.` is required.
 
 ## Example
 

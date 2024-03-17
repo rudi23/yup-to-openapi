@@ -25,7 +25,7 @@
     "release": "GITHUB_TOKEN=$GITHUB_COM_TOKEN && release-it"
   },
   "engines": {
-    "node": ">= 12"
+    "node": ">= 16"
   },
   "author": "Krzysztof Rudowski",
   "license": "MIT",
