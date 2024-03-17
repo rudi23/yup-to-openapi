@@ -102,16 +102,19 @@ const yupToSwaggerType: Record<string, { types: FieldType[]; default: FieldType 
 };
 
 function getTests(yupField: AnySchema): Record<string, ExtraParams | undefined> {
-    return yupField.describe().tests.reduce((agg, test) => {
-        if (!test.name) {
-            return agg;
-        }
+    return yupField.describe().tests.reduce(
+        (agg, test) => {
+            if (!test.name) {
+                return agg;
+            }
 
-        return {
-            ...agg,
-            [test.name]: test.params,
-        };
-    }, {} as Record<string, ExtraParams | undefined>);
+            return {
+                ...agg,
+                [test.name]: test.params,
+            };
+        },
+        {} as Record<string, ExtraParams | undefined>
+    );
 }
 
 function findTests<SearchItem extends string = string>(yupField: AnySchema, searchArr: SearchItem[]): SearchItem[] {
