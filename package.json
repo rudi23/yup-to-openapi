@@ -58,7 +58,7 @@
   },
   "dependencies": {
     "openapi3-ts": "2.0.2",
-    "yup": "0.32.11"
+    "yup": "1.4.0"
   },
   "devDependencies": {
     "@commitlint/cli": "19.2.0",
