@@ -1,6 +1,6 @@
 import { ArraySchema, ObjectSchema } from 'yup';
 import type { AnyObject, AnySchema, Lazy } from 'yup';
-import type { SchemaObject } from 'openapi3-ts';
+import type { SchemaObject } from 'openapi3-ts/oas30.d.js';
 
 type ExtraParams = Record<string, unknown>;
 
