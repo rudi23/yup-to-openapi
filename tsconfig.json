@@ -4,7 +4,6 @@
     "alwaysStrict": true,
     "baseUrl": ".",
     "esModuleInterop": true,
-    "importsNotUsedAsValues": "error",
     "lib": ["esnext"],
     "module": "es2022",
     "moduleResolution": "node",
