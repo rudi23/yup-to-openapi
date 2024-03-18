@@ -1,3 +1,22 @@
+## [3.0.0](https://github.com/rudi23/yup-to-openapi/compare/v2.1.3...v3.0.0) (2024-03-18)
+
+### Features
+
+-   require node >= 16 **BREAKING CHANGE** ([e5cb3e2](https://github.com/rudi23/yup-to-openapi/commit/e5cb3e2f05664521b319c2f16c8702b782e1b3c8))
+
+### Bug Fixes
+
+-   **deps:** update dependency openapi3-ts to v4 ([#170](https://github.com/rudi23/yup-to-openapi/issues/170)) ([ff6f492](https://github.com/rudi23/yup-to-openapi/commit/ff6f492d2215474c5d703b4119b8a0a04ca9c5b9))
+-   **deps:** update dependency yup to v1 ([#146](https://github.com/rudi23/yup-to-openapi/issues/146)) ([dd1e0c4](https://github.com/rudi23/yup-to-openapi/commit/dd1e0c46537dab162111e78e6431412998bc5469))
+-   set yup as peer dependency ([157b414](https://github.com/rudi23/yup-to-openapi/commit/157b41436037e7a7105700a8e3662b17d3f15b56))
+
+### Miscellaneous Chores
+
+-   **deps:** update dependency husky to v9 ([#252](https://github.com/rudi23/yup-to-openapi/issues/252)) ([ef8a59d](https://github.com/rudi23/yup-to-openapi/commit/ef8a59d79471d6a0d716af61f2f9b20437c68e2c))
+-   **deps:** update dependency typescript to v5 ([#161](https://github.com/rudi23/yup-to-openapi/issues/161)) ([a3f111a](https://github.com/rudi23/yup-to-openapi/commit/a3f111a6377be98d081fa835baa2913945a75af7))
+-   **deps:** update linters (major) ([#214](https://github.com/rudi23/yup-to-openapi/issues/214)) ([eba1c94](https://github.com/rudi23/yup-to-openapi/commit/eba1c94355268590b6d2e27a6bad80f873b7febb))
+-   **deps:** update test packages to v29 ([#61](https://github.com/rudi23/yup-to-openapi/issues/61)) ([de44389](https://github.com/rudi23/yup-to-openapi/commit/de44389da9706c85f8ab356561e04f57894b4845))
+
 ## [2.1.3](https://github.com/rudi23/yup-to-openapi/compare/v2.1.2...v2.1.3) (2024-03-17)
 
 ### Bug Fixes
