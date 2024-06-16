@@ -83,7 +83,7 @@
     "lint-staged": "15.2.7",
     "prettier": "3.3.2",
     "release-it": "17.3.0",
-    "ts-jest": "29.1.4",
+    "ts-jest": "29.1.5",
     "ts-node": "10.9.2",
     "typescript": "5.4.5",
     "yup": "1.4.0"
