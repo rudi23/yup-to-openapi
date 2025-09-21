@@ -9,7 +9,7 @@ jobs:
         node: [20]
     name: Lint on Node ${{ matrix.node }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-node@v2-beta
         with:
           node-version: ${{ matrix.node }}
@@ -23,7 +23,7 @@ jobs:
         node: [16, 18, 20, 21]
     name: Test on Node ${{ matrix.node }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-node@v2-beta
         with:
           node-version: ${{ matrix.node }}
